@@ -1,0 +1,7 @@
+# Files Compiled
+*
+!*/
+!*.*
+
+# Visual Studio Configs
+.vscode
