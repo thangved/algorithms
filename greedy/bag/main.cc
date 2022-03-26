@@ -12,13 +12,13 @@ int limit(const Item &item)
 int main()
 {
     // Bag 1
-    BagType bag = readbagfromfile("./CaiBalo1.txt");
+    Bagtype bag = readbagfromfile("./CaiBalo1.txt");
 
     // Bag 2
-    // BagType bag = readbagfromfile("./CaiBalo2.txt", true);
+    // Bagtype bag = readbagfromfile("./CaiBalo2.txt", true);
 
     // Bag 3
-    // BagType bag = readbagfromfile("./CaiBalo3.txt");
+    // Bagtype bag = readbagfromfile("./CaiBalo3.txt");
 
     greedy(bag, limit);
 
