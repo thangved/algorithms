@@ -7,5 +7,7 @@
   - [x] Sắp xếp "nhanh" (Quick sort)
   - [x] Sắp xếp vun đống (Heap sort)
 - [ ] Thuật toán tham ăn (Greedy)
+  - [x] ATM
+  - [x] TSP
 - [ ] Thuật toán nhánh cận (Branch and Bound)
 - [ ] Quy hoạch động (Dynamic Programing)
