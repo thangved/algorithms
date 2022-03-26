@@ -1,5 +1,7 @@
 # Cấu trúc dữ liệu và giải thuật
 
+[![CodeFactor](https://www.codefactor.io/repository/github/thangved/algorithms/badge/master)](https://www.codefactor.io/repository/github/thangved/algorithms/overview/master)
+
 - [x] Thuật toán sắp xếp
   - [x] Sắp xếp chọn (Selection sort)
   - [x] Sắp xếp xen (Insertion sort)
