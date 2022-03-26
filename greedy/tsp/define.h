@@ -69,7 +69,7 @@ bool compare(const edge &a, const edge &b)
     return a.w < b.w;
 }
 
-void bubblesort(std::vector<edge> &data)
+void sortedges(std::vector<edge> &data)
 {
 
     sort(data.begin(), data.end(), compare);
@@ -137,7 +137,7 @@ int circled(const graph &g, int u, int p)
 
 graph greedy(graph g)
 {
-    bubblesort(g.edges);
+    sortedges(g.edges);
 
     graph _return;
     initgraph(_return, g.n);
