@@ -88,10 +88,9 @@ Graph readgraphfromfile(string filepath)
         {
             float w;
             file >> w;
-            if (i > j)
+            if (i > j || !w)
                 continue;
-            if (w)
-                addedge(g, i, j, w);
+            addedge(g, i, j, w);
         }
     return g;
 }

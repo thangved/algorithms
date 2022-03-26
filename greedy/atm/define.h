@@ -1,7 +1,9 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 
+using namespace std;
 typedef struct
 {
     int key;
@@ -17,47 +19,14 @@ void swap(Recordtype &a, Recordtype &b)
     a = c;
 }
 
-void pushdown(std::vector<Recordtype> &data, int begin, int end)
+bool compare(const Recordtype &a, const Recordtype &b)
 {
-    while (begin <= (end - 2) / 2)
-    {
-        if (end == 2 * begin + 1)
-        {
-            if (data[begin].key > data[end].key)
-                swap(data[begin], data[end]);
-            break;
-        }
-        if ((data[begin].key > data[begin * 2 + 1].key) && (data[begin * 2 + 1].key <= data[begin * 2 + 2].key))
-        {
-            swap(data[begin], data[begin * 2 + 1]);
-            begin *= 2;
-            begin += 1;
-            continue;
-        }
-
-        if ((data[begin].key > data[begin * 2 + 2].key) && (data[begin * 2 + 1].key > data[begin * 2 + 2].key))
-        {
-            swap(data[begin], data[begin * 2 + 2]);
-            begin *= 2;
-            begin += 2;
-            continue;
-        }
-
-        break;
-    }
+    return a.key > b.key;
 }
 
-void heapsort(std::vector<Recordtype> &data)
+void decrease(vector<Recordtype> &data)
 {
-    for (int i = (data.size() - 2) / 2; i >= 0; i--)
-        pushdown(data, i, data.size() - 1);
-
-    for (int i = data.size() - 1; i >= 2; i--)
-    {
-        swap(data[0], data[i]);
-        pushdown(data, 0, i - 1);
-    }
-    swap(data[0], data[1]);
+    sort(data.begin(), data.end(), compare);
 }
 
 std::vector<Moneytype> readmoneytypes(std::string filepath)

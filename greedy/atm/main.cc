@@ -1,11 +1,9 @@
 #include "define.h"
 
-using namespace std;
-
 int main()
 {
     vector<Moneytype> moneytypes = readmoneytypes("./ATM.txt");
-    heapsort(moneytypes);
+    decrease(moneytypes);
 
     cout << "Nhap so tien can rut" << endl;
     cout << "So tien can rut phai la boi so cua" << (moneytypes.end() - 1)->other << endl;
@@ -15,8 +13,7 @@ int main()
 
     vector<int> withdraws = greedy(moneytypes, withdrawcost);
 
-    cout << endl
-         << "Ban can phai rut" << endl;
+    cout << "Ban can phai rut" << endl;
 
     cout << "---" << endl;
     int count = 0;
@@ -28,7 +25,6 @@ int main()
         }
 
     cout << "---" << endl
-         << endl
          << "Tong cong: " << count << " to tien" << endl;
 
     return 0;
