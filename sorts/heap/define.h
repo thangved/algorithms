@@ -3,16 +3,16 @@ typedef struct
 {
     int key;
     float other;
-} recordtype;
+} Recordtype;
 
-void swap(recordtype &a, recordtype &b)
+void swap(Recordtype &a, Recordtype &b)
 {
-    recordtype c = b;
+    Recordtype c = b;
     b = a;
     a = c;
 }
 
-void pushdown(std::vector<recordtype> &data, int begin, int end)
+void pushdown(std::vector<Recordtype> &data, int begin, int end)
 {
     while (begin <= (end - 2) / 2)
     {
@@ -42,7 +42,7 @@ void pushdown(std::vector<recordtype> &data, int begin, int end)
     }
 }
 
-void heapsort(std::vector<recordtype> &data)
+void heapsort(std::vector<Recordtype> &data)
 {
     for (int i = (data.size() - 2) / 2; i >= 0; i--)
         pushdown(data, i, data.size() - 1);

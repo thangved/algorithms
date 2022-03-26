@@ -2,8 +2,8 @@
 
 int main()
 {
-    graph g = readgraphfromfile("./TSP.txt");
-    graph result = greedy(g);
+    Graph g = readgraphfromfile("./TSP.txt");
+    Graph result = greedy(g);
     marked.fill(false);
     hascircled = false;
 

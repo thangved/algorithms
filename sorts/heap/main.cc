@@ -10,13 +10,13 @@ int main()
 {
     ifstream file = ifstream("./data.txt");
 
-    vector<recordtype> data;
+    vector<Recordtype> data;
     int key;
     float value;
 
     while (file >> key >> value)
     {
-        recordtype temp = {key, value};
+        Recordtype temp = {key, value};
         data.push_back(temp);
     }
 

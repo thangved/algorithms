@@ -11,26 +11,26 @@ typedef struct
 {
     int u, v;
     float w;
-} edge;
+} Edge;
 
 typedef struct
 {
     int n;
-    std::vector<edge> edges;
-} graph;
+    std::vector<Edge> edges;
+} Graph;
 
-void initgraph(graph &g, int n)
+void initgraph(Graph &g, int n)
 {
     g.n = n;
 }
 
-void addedge(graph &g, int u, int v, float w)
+void addedge(Graph &g, int u, int v, float w)
 {
-    edge e = {u, v, w};
+    Edge e = {u, v, w};
     g.edges.push_back(e);
 }
 
-void removeedge(graph &g, int u, int v)
+void removeedge(Graph &g, int u, int v)
 {
     for (int i = 0; i < (int)g.edges.size(); i++)
     {
@@ -41,7 +41,7 @@ void removeedge(graph &g, int u, int v)
     }
 }
 
-int degree(graph &g, int u)
+int degree(Graph &g, int u)
 {
     int d = 0;
     for (auto e = g.edges.begin(); e != g.edges.end(); e++)
@@ -49,7 +49,7 @@ int degree(graph &g, int u)
     return d;
 }
 
-vector<int> neighbours(graph g, int u)
+vector<int> neighbours(Graph g, int u)
 {
     vector<int> data;
     for (auto e = g.edges.begin(); e != g.edges.end(); e++)
@@ -64,23 +64,23 @@ vector<int> neighbours(graph g, int u)
     return data;
 }
 
-bool compare(const edge &a, const edge &b)
+bool compare(const Edge &a, const Edge &b)
 {
     return a.w < b.w;
 }
 
-void sortedges(std::vector<edge> &data)
+void sortedges(std::vector<Edge> &data)
 {
 
     sort(data.begin(), data.end(), compare);
 }
 
-graph readgraphfromfile(string filepath)
+Graph readgraphfromfile(string filepath)
 {
     ifstream file = ifstream(filepath);
     int n;
     file >> n;
-    graph g;
+    Graph g;
     initgraph(g, n);
 
     for (int i = 1; i <= n; i++)
@@ -107,7 +107,7 @@ array<bool, 100> marked;
 array<int, 100> parents;
 array<int, 100> colors;
 
-int circled(const graph &g, int u, int p)
+int circled(const Graph &g, int u, int p)
 {
     colors[u] = GRAY;
     marked[u] = true;
@@ -135,11 +135,11 @@ int circled(const graph &g, int u, int p)
     return hascircled;
 }
 
-graph greedy(graph g)
+Graph greedy(Graph g)
 {
     sortedges(g.edges);
 
-    graph _return;
+    Graph _return;
     initgraph(_return, g.n);
 
     for (auto e = g.edges.begin(); e != g.edges.end(); e++)
@@ -182,7 +182,7 @@ void printpath(array<int, 100> prs, int start, int end)
     cout << start << endl;
 }
 
-float pathlen(const graph &g)
+float pathlen(const Graph &g)
 {
     float len = 0;
     for (auto e = g.edges.begin(); e != g.edges.end(); e++)

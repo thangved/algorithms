@@ -3,16 +3,16 @@ typedef struct
 {
     int key;
     float other;
-} recordtype;
+} Recordtype;
 
-void swap(recordtype &a, recordtype &b)
+void swap(Recordtype &a, Recordtype &b)
 {
-    recordtype c = b;
+    Recordtype c = b;
     b = a;
     a = c;
 }
 
-void selectionsort(std::vector<recordtype> &data)
+void selectionsort(std::vector<Recordtype> &data)
 {
     for (int i = 0; i < (int)data.size() - 1; i++)
     {

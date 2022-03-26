@@ -3,16 +3,16 @@ typedef struct
 {
     int key;
     float other;
-} recordtype;
+} Recordtype;
 
-void swap(recordtype &a, recordtype &b)
+void swap(Recordtype &a, Recordtype &b)
 {
-    recordtype c = b;
+    Recordtype c = b;
     b = a;
     a = c;
 }
 
-int findpivot(std::vector<recordtype> data, int begin, int end)
+int findpivot(std::vector<Recordtype> data, int begin, int end)
 {
     for (int i = begin; i <= end; i++)
         if (data[i].key != data[begin].key)
@@ -21,7 +21,7 @@ int findpivot(std::vector<recordtype> data, int begin, int end)
     return -1;
 }
 
-int partition(std::vector<recordtype> &data, int begin, int end, int pivot)
+int partition(std::vector<Recordtype> &data, int begin, int end, int pivot)
 {
     while (begin <= end)
     {
@@ -36,7 +36,7 @@ int partition(std::vector<recordtype> &data, int begin, int end, int pivot)
     return begin;
 }
 
-void quicksort(std::vector<recordtype> &data, int begin, int end)
+void quicksort(std::vector<Recordtype> &data, int begin, int end)
 {
     int pivotindex = findpivot(data, begin, end);
 

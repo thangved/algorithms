@@ -3,16 +3,16 @@ typedef struct
 {
     int key;
     float other;
-} recordtype;
+} Recordtype;
 
-void swap(recordtype &a, recordtype &b)
+void swap(Recordtype &a, Recordtype &b)
 {
-    recordtype c = b;
+    Recordtype c = b;
     b = a;
     a = c;
 }
 
-void bubblesort(std::vector<recordtype> &data)
+void bubblesort(std::vector<Recordtype> &data)
 {
     for (int i = (int)data.size(); i > 0; i--)
     {

@@ -6,18 +6,18 @@ typedef struct
 {
     int key;
     std::string other;
-} recordtype;
+} Recordtype;
 
-typedef recordtype moneytype;
+typedef Recordtype Moneytype;
 
-void swap(recordtype &a, recordtype &b)
+void swap(Recordtype &a, Recordtype &b)
 {
-    recordtype c = b;
+    Recordtype c = b;
     b = a;
     a = c;
 }
 
-void pushdown(std::vector<recordtype> &data, int begin, int end)
+void pushdown(std::vector<Recordtype> &data, int begin, int end)
 {
     while (begin <= (end - 2) / 2)
     {
@@ -47,7 +47,7 @@ void pushdown(std::vector<recordtype> &data, int begin, int end)
     }
 }
 
-void heapsort(std::vector<recordtype> &data)
+void heapsort(std::vector<Recordtype> &data)
 {
     for (int i = (data.size() - 2) / 2; i >= 0; i--)
         pushdown(data, i, data.size() - 1);
@@ -60,23 +60,23 @@ void heapsort(std::vector<recordtype> &data)
     swap(data[0], data[1]);
 }
 
-std::vector<moneytype> readmoneytypes(std::string filepath)
+std::vector<Moneytype> readmoneytypes(std::string filepath)
 {
-    std::vector<moneytype> data;
+    std::vector<Moneytype> data;
     std::ifstream file = std::ifstream(filepath);
     int key;
     std::string value;
     while (file >> key)
     {
         getline(file, value);
-        recordtype r = {key, value};
+        Recordtype r = {key, value};
         data.push_back(r);
     }
     file.close();
     return data;
 }
 
-std::vector<int> greedy(std::vector<moneytype> moneytypes, int withdrawcost)
+std::vector<int> greedy(std::vector<Moneytype> moneytypes, int withdrawcost)
 {
     std::vector<int> withdraws;
     for (auto money = moneytypes.begin(); money != moneytypes.end(); money++)

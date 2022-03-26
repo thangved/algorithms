@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-    vector<moneytype> moneytypes = readmoneytypes("./ATM.txt");
+    vector<Moneytype> moneytypes = readmoneytypes("./ATM.txt");
     heapsort(moneytypes);
 
     cout << "Nhap so tien can rut" << endl;

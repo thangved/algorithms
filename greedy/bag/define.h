@@ -17,9 +17,9 @@ typedef struct
 {
     vector<Item> items;
     int maxweight, totalweight, totalvalue;
-} BagType;
+} Bagtype;
 
-BagType readbagfromfile(const string &filepath, const bool haslimit = false)
+Bagtype readbagfromfile(const string &filepath, const bool haslimit = false)
 {
     vector<Item> data;
     ifstream file = ifstream(filepath);
@@ -50,7 +50,7 @@ bool compare(const Item &a, const Item &b)
 {
     return a.value > b.value;
 }
-void greedy(BagType &bag, int(limit(const Item &item)))
+void greedy(Bagtype &bag, int(limit(const Item &item)))
 {
     // Sorting...
     sort(bag.items.begin(), bag.items.end(), compare);
