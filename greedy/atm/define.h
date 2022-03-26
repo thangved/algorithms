@@ -1,9 +1,14 @@
 #include <vector>
+#include <iostream>
+#include <fstream>
+
 typedef struct
 {
     int key;
-    float other;
+    std::string other;
 } recordtype;
+
+typedef recordtype moneytype;
 
 void swap(recordtype &a, recordtype &b)
 {
@@ -53,4 +58,31 @@ void heapsort(std::vector<recordtype> &data)
         pushdown(data, 0, i - 1);
     }
     swap(data[0], data[1]);
+}
+
+std::vector<moneytype> readmoneytypes(std::string filepath)
+{
+    std::vector<moneytype> data;
+    std::ifstream file = std::ifstream(filepath);
+    int key;
+    std::string value;
+    while (file >> key)
+    {
+        getline(file, value);
+        recordtype r = {key, value};
+        data.push_back(r);
+    }
+    file.close();
+    return data;
+}
+
+std::vector<int> greedy(std::vector<moneytype> moneytypes, int withdrawcost)
+{
+    std::vector<int> withdraws;
+    for (auto money = moneytypes.begin(); money != moneytypes.end(); money++)
+    {
+        withdraws.push_back(withdrawcost / money->key);
+        withdrawcost -= money->key * (withdrawcost / money->key);
+    }
+    return withdraws;
 }
