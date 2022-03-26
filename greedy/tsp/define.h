@@ -71,7 +71,6 @@ bool compare(const Edge &a, const Edge &b)
 
 void sortedges(std::vector<Edge> &data)
 {
-
     sort(data.begin(), data.end(), compare);
 }
 
