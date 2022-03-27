@@ -1,3 +1,17 @@
+/**
+ * @file define.h
+ * @author thangved (thangved02@gmail.com)
+ * @brief
+ * @version 0.1
+ * @date 2022-03-27
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
+#ifndef _DEFINE_H
+#define _DEFINE_H
+
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -7,7 +21,7 @@ using namespace std;
 typedef struct
 {
     int key;
-    std::string other;
+    string other;
 } Recordtype;
 
 typedef Recordtype Moneytype;
@@ -29,12 +43,12 @@ void decrease(vector<Recordtype> &data)
     sort(data.begin(), data.end(), compare);
 }
 
-std::vector<Moneytype> readmoneytypes(std::string filepath)
+vector<Moneytype> readmoneytypes(string filepath)
 {
-    std::vector<Moneytype> data;
-    std::ifstream file = std::ifstream(filepath);
+    vector<Moneytype> data;
+    ifstream file = ifstream(filepath);
     int key;
-    std::string value;
+    string value;
     while (file >> key)
     {
         getline(file, value);
@@ -45,9 +59,9 @@ std::vector<Moneytype> readmoneytypes(std::string filepath)
     return data;
 }
 
-std::vector<int> greedy(std::vector<Moneytype> moneytypes, int withdrawcost)
+vector<int> greedy(vector<Moneytype> moneytypes, int withdrawcost)
 {
-    std::vector<int> withdraws;
+    vector<int> withdraws;
     for (auto money = moneytypes.begin(); money != moneytypes.end(); money++)
     {
         withdraws.push_back(withdrawcost / money->key);
@@ -55,3 +69,5 @@ std::vector<int> greedy(std::vector<Moneytype> moneytypes, int withdrawcost)
     }
     return withdraws;
 }
+
+#endif

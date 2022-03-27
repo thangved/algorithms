@@ -1,4 +1,20 @@
+/**
+ * @file define.h
+ * @author thangved (thangved02@gmail.com)
+ * @brief
+ * @version 0.1
+ * @date 2022-03-27
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
+#ifndef _DEFINE_H
+#define _DEFINE_H
+
 #include <vector>
+
+using namespace std;
 typedef struct
 {
     int key;
@@ -12,7 +28,7 @@ void swap(Recordtype &a, Recordtype &b)
     a = c;
 }
 
-void insertionsort(std::vector<Recordtype> &data)
+void insertionsort(vector<Recordtype> &data)
 {
     for (int i = 1; i < (int)data.size(); i++)
     {
@@ -24,3 +40,5 @@ void insertionsort(std::vector<Recordtype> &data)
         }
     }
 }
+
+#endif

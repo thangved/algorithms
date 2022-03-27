@@ -1,3 +1,17 @@
+/**
+ * @file define.h
+ * @author thangved (thangved02@gmail.com)
+ * @brief
+ * @version 0.1
+ * @date 2022-03-27
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
+
+#ifndef _DEFINE_H
+#define _DEFINE_H
+
 #include <vector>
 
 using namespace std;
@@ -31,3 +45,5 @@ void selectionsort(vector<Recordtype> &data)
         swap(data[i], data[mid]);
     }
 }
+
+#endif
