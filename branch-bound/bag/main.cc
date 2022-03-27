@@ -2,6 +2,6 @@
 
 int main()
 {
-    Graph g = readgraphfromfile("./TSP1.txt");
+    // Graph g = readgraphfromfile("./TSP1.txt");
     return 0;
 }
