@@ -1,4 +1,6 @@
 #include <vector>
+
+using namespace std;
 typedef struct
 {
     int key;
@@ -12,7 +14,7 @@ void swap(Recordtype &a, Recordtype &b)
     a = c;
 }
 
-void pushdown(std::vector<Recordtype> &data, int begin, int end)
+void pushdown(vector<Recordtype> &data, int begin, int end)
 {
     while (begin <= (end - 2) / 2)
     {
@@ -42,7 +44,7 @@ void pushdown(std::vector<Recordtype> &data, int begin, int end)
     }
 }
 
-void heapsort(std::vector<Recordtype> &data)
+void heapsort(vector<Recordtype> &data)
 {
     for (int i = (data.size() - 2) / 2; i >= 0; i--)
         pushdown(data, i, data.size() - 1);

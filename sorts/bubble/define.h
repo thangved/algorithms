@@ -1,4 +1,7 @@
 #include <vector>
+
+using namespace std;
+
 typedef struct
 {
     int key;
@@ -12,7 +15,7 @@ void swap(Recordtype &a, Recordtype &b)
     a = c;
 }
 
-void bubblesort(std::vector<Recordtype> &data)
+void bubblesort(vector<Recordtype> &data)
 {
     for (int i = (int)data.size(); i > 0; i--)
     {

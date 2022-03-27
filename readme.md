@@ -4,17 +4,17 @@
 
 > Don't read me!!!
 
-- [x] Thuật toán sắp xếp
-  - [x] Sắp xếp chọn (Selection sort)
-  - [x] Sắp xếp xen (Insertion sort)
-  - [x] Sắp xếp nổi bọt (Bubble sort)
-  - [x] Sắp xếp "nhanh" (Quick sort)
-  - [x] Sắp xếp vun đống (Heap sort)
-- [x] Thuật toán tham ăn (Greedy)
-  - [x] ATM
-  - [x] TSP
-  - [x] Bag 1
-  - [x] Bag 2
-  - [x] Bag 3
+- [x] [Thuật toán sắp xếp](./sorts)
+  - [x] [Sắp xếp chọn (Selection sort)](./sorts/selection)
+  - [x] [Sắp xếp xen (Insertion sort)](./sorts/insertion)
+  - [x] [Sắp xếp nổi bọt (Bubble sort)](./sorts/bubble)
+  - [x] [Sắp xếp "nhanh" (Quick sort)](./sorts/quick)
+  - [x] [Sắp xếp vun đống (Heap sort)](./sorts/heap)
+- [x] [Thuật toán tham ăn (Greedy)](./greedy)
+  - [x] [ATM](./greedy/atm)
+  - [x] [TSP](./greedy/tsp)
+  - [x] [Bag 1](./greedy/bag)
+  - [x] [Bag 2](./greedy/bag)
+  - [x] [Bag 3](./greedy/bag)
 - [ ] Thuật toán nhánh cận (Branch and Bound)
 - [ ] Quy hoạch động (Dynamic Programing)

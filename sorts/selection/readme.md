@@ -1,3 +1,10 @@
+# Selection sort (Sắp xếp chọn)
+
+## Ý tưởng 🔅
+
+Ý tưởng chính của sắp xếp chọn là duyệt qua hết tất cả các phần tử của mảng và chuyển dần phần tử có giá trị nhỏ nhất về đầu mảng.
+
+```cpp
 #include <vector>
 
 using namespace std;
@@ -31,3 +38,4 @@ void selectionsort(vector<Recordtype> &data)
         swap(data[i], data[mid]);
     }
 }
+```
