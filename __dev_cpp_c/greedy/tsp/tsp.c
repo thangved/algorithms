@@ -1,3 +1,8 @@
+/**
+ * KIM MINH THANG
+ * B2007210
+ * GREEDY - TSP
+*/
 #include <stdio.h>
 
 #define MAXEDGE 100
@@ -108,6 +113,8 @@ int endcircle;
 
 void dfs(Graph *pG, int u, int p)
 {
+	if(hascircle)
+		return;
     colors[u] = GRAY;
     parents[u] = p;
 
@@ -123,8 +130,8 @@ void dfs(Graph *pG, int u, int p)
         if (colors[i] == GRAY)
         {
             hascircle = 1;
-            startcircle = i;
-            endcircle = u;
+            startcircle = u;
+            endcircle = i;
             return;
         }
         if (colors[i] == WHITE)
@@ -146,7 +153,19 @@ int checkcircle(Graph *pG, int u)
     return hascircle;
 }
 
-void findpath(Graph *pG)
+float finpathlen(const Graph *pG)
+{
+	float len = 0;
+	const Edge *edge = pG->edges;
+	while(edge != pG->edges + pG->m)
+	{
+		len += edge->w;
+		edge++;
+	}
+	return len;
+}
+
+void findpath(const Graph *pG)
 {
     Graph G;
     initgraph(&G, pG->n);
@@ -177,8 +196,12 @@ void findpath(Graph *pG)
         path[len++] = u;
         u = parents[u];
     }
+    puts("Chu trinh co the la ngan nhat tim duoc voi tham an la");
+    printf("%d -> ", startcircle);
     for (i = len - 1; i >= 0; i--)
         printf("%d -> ", path[i]);
+    printf("%d", startcircle);
+    printf("\nTong do dai la: %.2f", finpathlen(pG));
 }
 
 int main()
