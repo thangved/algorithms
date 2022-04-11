@@ -1,5 +1,5 @@
 /**
- * @file TSP - BAG 1
+ * @file TSP - BAG 3
  * @author KIM MINH THANG - B2007210
  */
 
@@ -61,6 +61,10 @@ void insertionsort(Item items[], int n)
 	}
 }
 
+int min(int a, int b)
+{
+	return a > b ? b : a;
+}
 void greedy(Item items[], int n, int w)
 {
 	puts("Danh sach cac do vat ban dau:");
@@ -75,7 +79,7 @@ void greedy(Item items[], int n, int w)
 	int total = 0;
 	for (i = 0; i < n; i++)
 	{
-		items[i].n = empty / items[i].w;
+		items[i].n = min(empty / items[i].w, 1);
 		empty -= items[i].n * items[i].w;
 		total += items[i].n * items[i].v;
 	}
@@ -92,7 +96,7 @@ int main()
 	Item items[100];
 	int n = 0;
 	int w;
-	readdata(items, &n, &w, "./CaiBalo1.txt");
+	readdata(items, &n, &w, "./CaiBalo3.txt");
 	greedy(items, n, w);
 	return 0;
 }

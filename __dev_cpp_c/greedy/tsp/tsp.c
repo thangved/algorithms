@@ -1,7 +1,6 @@
 /**
- * KIM MINH THANG
- * B2007210
- * GREEDY - TSP
+ * @file GREEDY - TSP
+ * @author KIM MINH THANG - B2007210
  */
 #include <stdio.h>
 
@@ -56,12 +55,16 @@ void sortedges(Edge edges[], int len)
 
 void printedges(const Edge edges[], int len)
 {
-    puts("+----------------------+");
-    puts("| TT\tCung\tDo dai |");
-    puts("+----------------------+");
+    const char *divider = "+-------------------------+";
+    puts(divider);
+    printf("| %3s%10s%10s |\n", "#", "Cung", "Do dai");
+    puts(divider);
     int i;
     for (i = 0; i < len; i++)
-        printf("| %d\t%c%c\t%5.2f  |\n+----------------------+\n", i + 1, edges[i].u + 'A', edges[i].v + 'A', edges[i].w);
+    {
+        const char edge[] = {edges[i].u + 'A', edges[i].v + 'A', '\0'};
+        printf("| %3d%10s%10.2f |\n%s\n", i + 1, edge, edges[i].w, divider);
+    }
 }
 
 int findroot(int parents[], int u)
@@ -82,10 +85,10 @@ int degree(Edge edges[], int len, int u)
 
 void greedy(Edge edges[], int len)
 {
-    puts("Danh sach cung ban dau");
+    puts("Danh sach cung ban dau:");
     printedges(edges, len);
     sortedges(edges, len);
-    puts("Danh sach cung sau khi sap xep");
+    puts("Danh sach cung sau khi sap xep:");
     printedges(edges, len);
 
     Edge solution[100];
@@ -110,7 +113,7 @@ void greedy(Edge edges[], int len)
         total += solution[n].w;
         n++;
     }
-    puts("Phuong an");
+    puts("Phuong an:");
     printedges(edges, n);
     printf("Tong do dai: %.2f\n", total);
 }

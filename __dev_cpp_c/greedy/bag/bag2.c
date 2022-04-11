@@ -1,5 +1,5 @@
 /**
- * @file TSP - BAG 1
+ * @file TSP - BAG 2
  * @author KIM MINH THANG - B2007210
  */
 
@@ -8,7 +8,7 @@
 typedef struct
 {
 	char name[40];
-	int v, w, n;
+	int v, w, m, n;
 	float c;
 } Item;
 
@@ -19,7 +19,7 @@ void readdata(Item items[], int *n, int *w, const char *filepath)
 	fscanf(f, "%d", w);
 	while (!feof(f))
 	{
-		fscanf(f, "%d%d %39[^\n]", &items[*n].w, &items[*n].v, items[*n].name);
+		fscanf(f, "%d%d%d %39[^\n]", &items[*n].w, &items[*n].v, &items[*n].m, items[*n].name);
 		items[*n].c = (float)items[*n].v / (float)items[*n].w;
 		*n = *n + 1;
 	}
@@ -29,15 +29,15 @@ void readdata(Item items[], int *n, int *w, const char *filepath)
 
 void printitems(const Item items[], int n)
 {
-	const char *divider = "+-----------------------------------------------------------------------------+";
+	const char *divider = "+---------------------------------------------------------------------------------------+";
 	puts(divider);
-	printf("| %5s%30s%10s%10s%10s%10s |\n", "#", "Name", "Weight", "Value", "Cost", "Select");
+	printf("| %5s%30s%10s%10s%10s%10s%10s |\n", "#", "Name", "Weight", "Value", "Max", "Cost", "Select");
 	puts(divider);
 
 	const Item *item = items;
 	int tt = 1;
 	for (; item != items + n; item++)
-		printf("| %5d%30s%10d%10d%10.2f%10d |\n%s\n", tt++, item->name, item->w, item->v, item->c, item->n, divider);
+		printf("| %5d%30s%10d%10d%10d%10.2f%10d |\n%s\n", tt++, item->name, item->w, item->v, item->m, item->c, item->n, divider);
 }
 
 void swap(Item *a, Item *b)
@@ -61,6 +61,11 @@ void insertionsort(Item items[], int n)
 	}
 }
 
+int min(int a, int b)
+{
+	return a > b ? b : a;
+}
+
 void greedy(Item items[], int n, int w)
 {
 	puts("Danh sach cac do vat ban dau:");
@@ -75,7 +80,7 @@ void greedy(Item items[], int n, int w)
 	int total = 0;
 	for (i = 0; i < n; i++)
 	{
-		items[i].n = empty / items[i].w;
+		items[i].n = min(empty / items[i].w, items[i].m);
 		empty -= items[i].n * items[i].w;
 		total += items[i].n * items[i].v;
 	}
@@ -92,7 +97,7 @@ int main()
 	Item items[100];
 	int n = 0;
 	int w;
-	readdata(items, &n, &w, "./CaiBalo1.txt");
+	readdata(items, &n, &w, "./CaiBalo2.txt");
 	greedy(items, n, w);
 	return 0;
 }

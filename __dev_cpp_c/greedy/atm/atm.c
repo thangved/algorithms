@@ -1,7 +1,6 @@
 /**
- * KIM MINH THANG
- * B2007210
- * GREEDY - ATM
+ * @file GREEDY - ATM
+ * @author KIM MINH THANG - B2007210
  */
 
 #include <stdio.h>
@@ -74,6 +73,7 @@ void descrease(MoneyType moneytypes[], const int len)
 
 void returnmoneys(const MoneyType moneytypes[], const int len, const int withdrawvalue)
 {
+    const char *divider = "+---------------------------------------------------------------------------+";
     int overbalance = withdrawvalue;
     int returns[100] = {};
     const MoneyType *money = moneytypes;
@@ -84,9 +84,9 @@ void returnmoneys(const MoneyType moneytypes[], const int len, const int withdra
         money++;
     }
 
-    puts("+----------------------------------------------------------------------+");
-    printf("| TT\tGia tri\t%40s\tSo to  |\n", "Menh gia");
-    puts("+----------------------------------------------------------------------+");
+    puts(divider);
+    printf("| %3s%10s%30s%10s%20s |\n", "#", "Gia tri", "Menh gia", "So to", "Thanh tien");
+    puts(divider);
 
     int i;
     int tt = 1;
@@ -95,7 +95,7 @@ void returnmoneys(const MoneyType moneytypes[], const int len, const int withdra
     {
         total += returns[i] * moneytypes[i].value;
         if (returns[i])
-            printf("| %d\t%d\t%40s\t%d      |\n+----------------------------------------------------------------------+\n", tt++, moneytypes[i].value, moneytypes[i].label, returns[i]);
+            printf("| %3d%10d%30s%10d%20d |\n%s\n", tt++, moneytypes[i].value, moneytypes[i].label, returns[i], returns[i] * moneytypes[i].value, divider);
     }
 
     printf("So tien can rut: %d\n", withdrawvalue);
