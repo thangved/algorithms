@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define MAXLABELLENGTH 100
+#define MAXLABELLENGTH 40
 
 typedef struct
 {
@@ -20,21 +20,11 @@ void readdata(MoneyType moneytypes[], int *len, const char *filepath)
     FILE *file = fopen(filepath, "r");
     while (!feof(file))
     {
-        fscanf(file, "%d %99[^\n]", &moneytypes[*len].value, moneytypes[*len].label);
+        fscanf(file, "%d %39[^\n]", &moneytypes[*len].value, moneytypes[*len].label);
         *len = *len + 1;
     }
 
     fclose(file);
-}
-
-void printmoneys(MoneyType moneytypes[], int len)
-{
-    MoneyType *money = moneytypes;
-    while (money != moneytypes + len)
-    {
-        printf("%d\t%s\n", money->value, money->label);
-        money++;
-    }
 }
 
 void swap(MoneyType *a, MoneyType *b)
@@ -85,29 +75,43 @@ void descrease(MoneyType moneytypes[], const int len)
 void returnmoneys(const MoneyType moneytypes[], const int len, const int withdrawvalue)
 {
     int overbalance = withdrawvalue;
-    int __returns[100];
+    int returns[100] = {};
     const MoneyType *money = moneytypes;
     while (money != moneytypes + len)
     {
-        __returns[money - moneytypes] = overbalance / money->value;
+        returns[money - moneytypes] = overbalance / money->value;
         overbalance %= money->value;
         money++;
     }
 
+    puts("+----------------------------------------------------------------------+");
+    printf("| TT\tGia tri\t%40s\tSo to  |\n", "Menh gia");
+    puts("+----------------------------------------------------------------------+");
+
     int i;
+    int tt = 1;
+    int total = 0;
     for (i = 0; i < len; i++)
-        printf("%d to %s\n", __returns[i], moneytypes[i].label);
+    {
+        total += returns[i] * moneytypes[i].value;
+        if (returns[i])
+            printf("| %d\t%d\t%40s\t%d      |\n+----------------------------------------------------------------------+\n", tt++, moneytypes[i].value, moneytypes[i].label, returns[i]);
+    }
+
+    printf("So tien can rut: %d\n", withdrawvalue);
+    printf("So tien thuc te: %d\n", total);
+    if (withdrawvalue - total)
+        printf("Khong the rut so tien tren do ATM khong the tra menh gia: %d", withdrawvalue - total);
 }
 
 int main()
 {
     MoneyType moneytypes[100];
     int len = 0;
-    readdata(moneytypes, &len, "./ATM.txt");
+    readdata(moneytypes, &len, "./ATM.TXT");
     descrease(moneytypes, len);
     int withdrawvalue;
     scanf("%d", &withdrawvalue);
-    printf("Khi rut %dVND Ban se nhan duoc\n", withdrawvalue);
     returnmoneys(moneytypes, len, withdrawvalue);
     return 0;
 }

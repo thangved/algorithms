@@ -2,10 +2,8 @@
  * KIM MINH THANG
  * B2007210
  * GREEDY - TSP
-*/
+ */
 #include <stdio.h>
-
-#define MAXEDGE 100
 
 typedef struct
 {
@@ -13,201 +11,115 @@ typedef struct
     float w;
 } Edge;
 
-typedef struct
+void readdata(Edge edges[], int *len, const char *filepath)
 {
-    int n, m;
-    Edge edges[MAXEDGE];
-} Graph;
-
-void initgraph(Graph *pG, int n)
-{
-    pG->n = n;
-    pG->m = 0;
-}
-
-void addedge(Graph *pG, int u, int v, float w)
-{
-    Edge edge = {u, v, w};
-    pG->edges[pG->m++] = edge;
-}
-
-void popedge(Graph *pG)
-{
-    pG->m--;
-}
-
-Graph readdata(const char *filepath)
-{
-    Graph G;
-    FILE *file = fopen(filepath, "r");
+    FILE *f = fopen(filepath, "r");
     int n;
-    fscanf(file, "%d", &n);
-    initgraph(&G, n);
+    fscanf(f, "%d", &n);
     int u, v;
-
-    for (u = 1; u <= n; u++)
-        for (v = 1; v <= n; v++)
+    for (u = 0; u < n; u++)
+        for (v = 0; v < n; v++)
         {
             float w;
-            fscanf(file, "%f", &w);
+            fscanf(f, "%f", &w);
             if (u >= v)
                 continue;
-            addedge(&G, u, v, w);
+            edges[*len].u = u;
+            edges[*len].v = v;
+            edges[*len].w = w;
+            *len = *len + 1;
         }
-    fclose(file);
-    return G;
+
+    fclose(f);
 }
 
-int adjcent(Graph *pG, int u, int v)
+void swapedges(Edge *a, Edge *b)
+{
+    Edge temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void sortedges(Edge edges[], int len)
 {
     int i;
-    for (i = 0; i < pG->m; i++)
+    for (i = 0; i < len - 1; i++)
     {
-        if (pG->edges[i].u == u && pG->edges[i].v == v)
-            return 1;
-        if (pG->edges[i].v == u && pG->edges[i].u == v)
-            return 1;
+        int j;
+        int mid = i;
+        for (j = i + 1; j < len; j++)
+            if (edges[j].w < edges[mid].w)
+                mid = j;
+        swapedges(&edges[i], &edges[mid]);
     }
-    return 0;
 }
 
-int degree(Graph *pG, int u)
+void printedges(const Edge edges[], int len)
 {
-    int d = 0, i;
+    puts("+----------------------+");
+    puts("| TT\tCung\tDo dai |");
+    puts("+----------------------+");
+    int i;
+    for (i = 0; i < len; i++)
+        printf("| %d\t%c%c\t%5.2f  |\n+----------------------+\n", i + 1, edges[i].u + 'A', edges[i].v + 'A', edges[i].w);
+}
 
-    for (i = 0; i < pG->m; i++)
-        d += pG->edges[i].u == u || pG->edges[i].v == u;
+int findroot(int parents[], int u)
+{
+    while (u != parents[u])
+        u = parents[u];
+    return u;
+}
+
+int degree(Edge edges[], int len, int u)
+{
+    int d = 0;
+    int i;
+    for (i = 0; i < len; i++)
+        d += edges[i].u == u || edges[i].v == u;
     return d;
 }
 
-void swap(Edge *a, Edge *b)
+void greedy(Edge edges[], int len)
 {
-    Edge t = *a;
-    *a = *b;
-    *b = t;
-}
+    puts("Danh sach cung ban dau");
+    printedges(edges, len);
+    sortedges(edges, len);
+    puts("Danh sach cung sau khi sap xep");
+    printedges(edges, len);
 
-void insertionsort(Edge edges[], int n)
-{
+    Edge solution[100];
+    int parents[100];
+    int n = 0;
+    float total = 0;
     int i;
-    for (i = 1; i < n; i++)
+    for (i = 0; i < 100; i++)
+        parents[i] = i;
+    for (i = 0; i < len; i++)
     {
-        int j = i;
-        while (j && edges[j - 1].w > edges[j].w)
-        {
-            swap(&edges[j - 1], &edges[j]);
-            j--;
-        }
-    }
-}
-
-#define WHITE 0
-#define BLACK 1
-#define GRAY -1
-
-int colors[MAXEDGE];
-int parents[MAXEDGE];
-int hascircle;
-int startcircle;
-int endcircle;
-
-void dfs(Graph *pG, int u, int p)
-{
-	if(hascircle)
-		return;
-    colors[u] = GRAY;
-    parents[u] = p;
-
-    int i;
-    for (i = 1; i <= pG->n; i++)
-    {
-        if (!adjcent(pG, u, i))
+        solution[n] = edges[i];
+        int root_u = findroot(parents, solution[n].u);
+        int root_v = findroot(parents, solution[n].v);
+        if (root_u == root_v)
             continue;
-        if (colors[i] == BLACK)
+        if (degree(edges, len, solution[n].u) == 3)
             continue;
-        if (parents[u] == i)
+        if (degree(edges, len, solution[n].v) == 3)
             continue;
-        if (colors[i] == GRAY)
-        {
-            hascircle = 1;
-            startcircle = u;
-            endcircle = i;
-            return;
-        }
-        if (colors[i] == WHITE)
-            dfs(pG, i, u);
+        parents[root_v] = parents[root_u];
+        total += solution[n].w;
+        n++;
     }
-    colors[u] = BLACK;
-}
-
-int checkcircle(Graph *pG, int u)
-{
-    int i;
-    for (i = 0; i < MAXEDGE; i++)
-    {
-        colors[i] = WHITE;
-        parents[i] = -1;
-    }
-    hascircle = 0;
-    dfs(pG, u, -1);
-    return hascircle;
-}
-
-float finpathlen(const Graph *pG)
-{
-	float len = 0;
-	const Edge *edge = pG->edges;
-	while(edge != pG->edges + pG->m)
-	{
-		len += edge->w;
-		edge++;
-	}
-	return len;
-}
-
-void findpath(const Graph *pG)
-{
-    Graph G;
-    initgraph(&G, pG->n);
-    int i;
-    for (i = 0; i < pG->m; i++)
-    {
-        int u = pG->edges[i].u;
-        int v = pG->edges[i].v;
-        float w = pG->edges[i].w;
-        addedge(&G, u, v, w);
-        if (degree(&G, u) > 2 || degree(&G, v) > 2)
-            popedge(&G);
-
-        if (G.m == G.n)
-            continue;
-        if (checkcircle(&G, u) || checkcircle(&G, v))
-            popedge(&G);
-    }
-
-    checkcircle(&G, 1);
-
-    int path[MAXEDGE];
-    int len = 0;
-
-    int u = endcircle;
-    while (u != startcircle && u != -1)
-    {
-        path[len++] = u;
-        u = parents[u];
-    }
-    puts("Chu trinh co the la ngan nhat tim duoc voi tham an la");
-    printf("%d -> ", startcircle);
-    for (i = len - 1; i >= 0; i--)
-        printf("%d -> ", path[i]);
-    printf("%d", startcircle);
-    printf("\nTong do dai la: %.2f", finpathlen(pG));
+    puts("Phuong an");
+    printedges(edges, n);
+    printf("Tong do dai: %.2f\n", total);
 }
 
 int main()
 {
-    Graph G = readdata("./TSP.txt");
-    insertionsort(G.edges, G.m);
-    findpath(&G);
+    Edge edges[100];
+    int len = 0;
+    readdata(edges, &len, "./TSP.TXT");
+    greedy(edges, len);
     return 0;
 }
