@@ -85,7 +85,7 @@ void greedy(Item items[], int n, int w)
 	}
 	
 	printitems(items, n);
-	printf("Phuong an: X(%d", items[0].n);
+	printf("Phuong an (Theo thu tu giam dan cua don gia): X(%d", items[0].n);
 	for (i = 1; i < n; i++)
 		printf(", %d", items[i].n);
 	puts(")");

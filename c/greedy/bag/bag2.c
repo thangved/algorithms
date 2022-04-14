@@ -34,15 +34,15 @@ Item *readdata(int *n, int *w, const char *filepath)
 
 void printitems(const Item items[], int n)
 {
-	const char *divider = "+-----------------------------------------------------------------------------+";
+	const char *divider = "+---------------------------------------------------------------------------------------+";
 	puts(divider);
-	printf("| %5s%30s%10s%10s%10s%10s |\n", "#", "Name", "Weight", "Value", "Cost", "Select");
+	printf("| %5s%30s%10s%10s%10s%10s%10s |\n", "#", "Name", "Weight", "Value", "Cost", "Max", "Select");
 	puts(divider);
 
 	const Item *item = items;
 	int tt = 1;
 	for (; item != items + n; item++)
-		printf("| %5d%30s%10d%10d%10.2f%10d |\n%s\n", tt++, item->name, item->w, item->v, item->c, item->n, divider);
+		printf("| %5d%30s%10d%10d%10.2f%10d%10d |\n%s\n", tt++, item->name, item->w, item->v, item->c, item->m, item->n, divider);
 }
 
 void swap(Item *a, Item *b)
@@ -85,7 +85,7 @@ void greedy(Item items[], int n, int w)
 	}
 	
 	printitems(items, n);
-	printf("Phuong an: X(%d", items[0].n);
+	printf("Phuong an (Theo thu tu giam dan cua don gia): X(%d", items[0].n);
 	for (i = 1; i < n; i++)
 		printf(", %d", items[i].n);
 	puts(")");
