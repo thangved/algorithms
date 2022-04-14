@@ -4,6 +4,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct
 {
@@ -12,8 +13,10 @@ typedef struct
 	float c;
 } Item;
 
-void readdata(Item items[], int *n, int *w, const char *filepath)
+Item *readdata(int *n, int *w, const char *filepath)
 {
+	*n = 0;
+	Item *items = (Item *)malloc(sizeof(Item));
 	FILE *f = fopen(filepath, "r");
 
 	fscanf(f, "%d", w);
@@ -22,9 +25,11 @@ void readdata(Item items[], int *n, int *w, const char *filepath)
 		fscanf(f, "%d%d %39[^\n]", &items[*n].w, &items[*n].v, items[*n].name);
 		items[*n].c = (float)items[*n].v / (float)items[*n].w;
 		*n = *n + 1;
+		items = (Item *) realloc(items, sizeof(Item) * (*n + 1));
 	}
 
 	fclose(f);
+	return items;
 }
 
 void printitems(const Item items[], int n)
@@ -63,12 +68,6 @@ void insertionsort(Item items[], int n)
 
 void greedy(Item items[], int n, int w)
 {
-	puts("Danh sach cac do vat ban dau:");
-	printitems(items, n);
-	insertionsort(items, n);
-	puts("Danh sach do vat sau khi sap xep theo don gia (Cost)");
-	printitems(items, n);
-
 	int empty = w;
 
 	int i;
@@ -79,9 +78,12 @@ void greedy(Item items[], int n, int w)
 		empty -= items[i].n * items[i].w;
 		total += items[i].n * items[i].v;
 	}
-
-	puts("Phuong an:");
+	
 	printitems(items, n);
+	printf("Phuong an: X(%d", items[0].n);
+	for (i = 1; i < n; i++)
+		printf(", %d", items[i].n);
+	puts(")");
 	printf("Tong trong luong cua do vat: %d\n", w - empty);
 	printf("Trong luong con lai: %d\n", empty);
 	printf("Tong gia tri: %d\n", total);
@@ -89,10 +91,9 @@ void greedy(Item items[], int n, int w)
 
 int main()
 {
-	Item items[100];
-	int n = 0;
+	int n;
 	int w;
-	readdata(items, &n, &w, "./CaiBalo1.txt");
+	Item *items = readdata(&n, &w, "./CaiBalo1.txt");
 	greedy(items, n, w);
 	return 0;
 }
