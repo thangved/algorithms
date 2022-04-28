@@ -1,3 +1,7 @@
+/**
+ * KIM MINH THANG - B2007210
+ * TSP - BRANCH & BOUND
+ */
 #include <stdio.h>
 
 #define MAX_EDGE 100
