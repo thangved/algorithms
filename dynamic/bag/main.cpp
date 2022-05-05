@@ -84,7 +84,6 @@ void branchbound(Item items[], int step, int n, int W, Node parent, int x[])
 		Node node = {upperbound, total};
 		branchbound(items, step + 1, n, w, node, x);
 	}
-	
 }
 
 int main()

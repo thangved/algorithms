@@ -29,8 +29,21 @@ int printpath(int P[][MAX_N], int F[][MAX_N], int row, int col)
     return F[row][col];
 }
 
+void printtriangle(const int A[][MAX_N], int n)
+{
+	int i, j;
+	for (i = 1; i <= n; i++)
+	{
+		for (j = 1; j <= i; j++)
+			printf("%d ", A[i][j]);
+		printf("\n");
+	}
+}
+
 void foundpath(const int Data[][MAX_N], int n)
 {
+	puts("Tam Gia so:");
+	printtriangle(Data, n);
     int F[MAX_N][MAX_N] = {};
     int P[MAX_N][MAX_N] = {};
     for (int i = 1; i <= n; i++)
@@ -47,6 +60,8 @@ void foundpath(const int Data[][MAX_N], int n)
         }
     }
 
+	puts("Bang F:");
+	printtriangle(F, n);
     int maxindex = 1;
     for (int i = 2; i <= n; i++)
         if (F[n][maxindex] < F[n][i])
